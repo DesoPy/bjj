@@ -18,11 +18,17 @@
             {% endfor %}
 
             <button type="submit">Увійти</button>
+
+                <button class="forg-pass">
+                <a href="{% url 'password_reset' %}">Забули пароль?</a>
+                </button>
+
         </form>
 
-        <a href="{% url 'password_reset' %}"><i>Forgot Password?</i></a>
-    
+
+
     </div>
+
 
 
 

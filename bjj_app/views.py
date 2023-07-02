@@ -247,7 +247,7 @@ def passwordResetConfirm(request, uidb64, token):
     return redirect("homepage")
 
 
-class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView, DataMixin):
     template_name = 'bjj_app/password_reset.html'
     email_template_name = 'bjj_app/password_reset_email.html'
     subject_template_name = 'bjj_app/password_reset_subject.txt'
@@ -256,6 +256,21 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
                       " If you don't receive an email, " \
                       "please make sure you've entered the address you registered with, and check your spam folder."
     success_url = reverse_lazy('home')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Відновлення паролю')
+
+        menu = [{'title': 'Головна', 'url_name': 'home'},
+                {'title': 'Галерея', 'url_name': 'gallery'},
+                {'title': 'Розклад тренувань', 'url_name': 'schedule'},
+                {'title': 'Про нас', 'url_name': 'about'},
+                {'title': 'Контакти', 'url_name': 'contacts'},
+                ]
+        
+        c_def['menu'] = menu
+
+        return dict(list(context.items()) + list(c_def.items()))
 
 
 def pageNotFound(request, exception):

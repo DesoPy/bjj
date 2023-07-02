@@ -455,3 +455,20 @@ th,td{
     line-height: 1.25;
     padding-left: 10px;
 }
+
+.forg-pass {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: right;
+}
+
+.label-pos {
+    float: right;
+}
+
+.position-comlete{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
