@@ -6,7 +6,7 @@ from .models import Comment, NewsReaction, CommentPhoto, Schedule, Trainer
 
 
 class CommentForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}))
+    content = forms.CharField(widget=forms.Textarea(attrs={'rows': 10, 'cols': 50}))
 
     class Meta:
         model = Comment

@@ -9,7 +9,7 @@ menu = [{'title': 'Головна', 'url_name': 'home'},
 
 
 class DataMixin:
-    paginate_by = 10
+    paginate_by = 6
 
     def get_user_context(self, **kwargs):
         context = kwargs

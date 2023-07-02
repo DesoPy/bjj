@@ -1,36 +1,70 @@
 {% extends 'bjj_app/base.html' %}
+{% load static %}
 
 {% block content %}
 
-<div class="container">
-  <h1 class="text-center">Контакти тренерів</h1>
-  <div class="row justify-content-center">
+  <h1>Контакти тренерів</h1>
+<div class="contact-trainer">
     {% for n in trainer %}
-    <div class="col-md-6 mb-4">
-      <div class="card-body text-center">
+    <div class="photo-container-contact">
+
         {% if n.photo %}
-        <img src="{{ n.photo.url }}" alt="{{ n.full_name }} full_name" class="card-img-top mx-auto d-block" style="width: 400px; height: 500px; object-fit: cover;">
-        {% endif %}
-        <div class="card-body text-center">
-          <h2 class="card-title">{{ n.full_name }}</h2>
-          <p class="card-text">{{ n.information|linebreaks }}</p>
-          <p class="card-text"><b>Контактний телефон:</b> {{ n.contact_phone }}</p>
+        <div>
+          <img src="{{ n.photo.url }}" alt="{{ n.full_name }} full_name" class="photo-info">
         </div>
-      </div>
+        {% endif %}
+
+        <div>
+          <div class="trainer-name">{{ n.full_name }}</div>
+          <div class="trainer-info">{{ n.information|linebreaks }}</div>
+          <div class="trainer-phone"><b>Контактний телефон:</b> {{ n.contact_phone }}</div>
+        </div>
     </div>
     {% endfor %}
   </div>
 
-<div class="container mx-auto text-center" style="padding: 20px;">
-    <p><b>Адреса:</b> вулиця Тимчасова, 2А, Дніпро, Дніпропетровська область, 49047</p>
-</div>
+  <br>
 
-</div >
-<div class="p-2" style="padding: 20px;">
-<div class="container mx-auto text-center">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10574.050790386085!2d35.0732751!3d48.5042356!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dbe393edb25bcb%3A0xe91e1f026da0b37e!2sYamasaki%20Academy%20Jiu%20Jitsu!5e0!3m2!1suk!2sua!4v1684345713046!5m2!1suk!2sua"
-            width="800" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>
-</div>
+    <div class="adress-info">
+        <b>Адреса:</b> м. Дніпро, вулиця Тимчасова, 2А
+    </div>
+
+    <br>
+
+    <div class="soc-net">
+      Соціальні мережі:
+    </div>
+
+    <div class="all-soc">
+      <div class="soc-inline">
+        <a href="https://www.facebook.com/BrazilianJiuJitsuDnepr/" target="_blank">
+          <img src="{% static 'bjj_app/images/fb.png' %}" width="35px" height="35px" alt="facebook">
+        </a>
+      </div>
+
+      <div class="soc-inline">
+        <a href="https://www.instagram.com/bjj_dnipro/" target="_blank">
+          <img src="{% static 'bjj_app/images/instagram.png' %}" width="35px" height="35px" alt="instagram">
+        </a>
+      </div>
+
+      <div class="soc-inline">
+        <a href="https://www.instagram.com/bjj_kids_dnipro/" target="_blank">
+          <img src="{% static 'bjj_app/images/instagram.png' %}" width="35px" height="35px" alt="instagram">
+        </a>
+      </div>
+
+      <div class="soc-inline">
+        <a href="https://www.youtube.com/@user-dm4bx3gv8l" target="_blank">
+          <img src="{% static 'bjj_app/images/yt.png' %}" width="35px" height="35px" alt="youtube">
+        </a>
+      </div>
+    </div>
+
+
+  <div class="map-container">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10574.050790386085!2d35.0732751!3d48.5042356!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dbe393edb25bcb%3A0xe91e1f026da0b37e!2sYamasaki%20Academy%20Jiu%20Jitsu!5e0!3m2!1suk!2sua!4v1684345713046!5m2!1suk!2sua"
+              width="960px" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
 
 {% endblock %}

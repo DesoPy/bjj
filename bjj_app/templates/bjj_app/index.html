@@ -2,96 +2,67 @@
 
 {% block content %}
 
-<h1 align ="center">Новини Yamasaki academy Dnipro</h1>
-
+<h1>Новини Yamasaki academy Dnipro</h1>
 
 {% for n in post %}
-<div class="container mx-auto" style="width: 80%; margin: 0 auto;">
-    <div class="media">
-        {% if n.photo %}
-        <h2 class="media-heading">{{ n.title }}</h2>
-        <div class="container mx-auto" style="width: 100%;">
-            <img src="{{ n.photo.url }}" alt="{{ n.title }} photo" style="width: 100%; height: 500px; object-fit: cover;">
+<div>
+    {% if n.photo %}
+
+        <h2>{{ n.title }}</h2>
+
+        <div>
+            <img src="{{ n.photo.url }}" alt="{{ n.title }} photo" class="photo-info">
         </div>
-        {% endif %}
-        <div class="media-body">
-            <p>{{ n.content|linebreaks|truncatewords:50 }}</p>
 
-            <div class="row">
-                <div class="col-md-6 d-inline-block">
-                    <p class="link-read-post"><a href="{% url 'post_detail' post_slug=n.slug %}" class="btn btn-primary mt-2">Читати повністю</a></p>
+    {% endif %}
+
+        <div>
+            <p>{{ n.content|truncatechars_html:150|linebreaksbr }}</p>
+            
+            <div>
+                <div class="read-all">
+                    <a href="{% url 'post_detail' post_slug=n.slug %}">Читати повністю</a>
                 </div>
-                <div class="col-md-6 d-inline-block text-right">
-                     {% if user.is_authenticated %}
-                    <p class="link-read-post"><a href="{% url 'add_comment' news_id=n.id %}" class="btn btn-primary mt-2">Додати коментар</a></p>
-                    {% else %}
-                    <p class="link-read-post"><a href="{% url 'login' %}" class="btn btn-primary mt-2">Авторизуйтесь</a></p>
-                    {% endif %}
 
+                <div class="add-comment">
+                     {% if user.is_authenticated %}
+                    <a href="{% url 'add_comment' news_id=n.id %}">Додати коментар</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" title="Щоб залишати коментарі, необхідна авторизація">Авторизуйтесь</a>
+                    {% endif %}
                 </div>
             </div>
 
-            <hr>
+                <div style="clear: both;"></div>
 
+            <div class="comment-border">
             {% if n.comments.exists %}
-            <ul class="list-group">
+
                 {% for c in n.comments.all %}
-                <li class="list-group-item">
-                    <p style="margin: 0;">{{ c.content|linebreaks|truncatewords:20 }} - {{ c.author.username }} at {{ c.date }}</p>
-                    {% if request.user == c.author %}
-                    <a href="{% url 'delete_comment' comment_id=c.id %}">Видалити</a>
-                    {% endif %}
-                </li>
+                <div class="li-comment">
+                    {{ c.content|linebreaksbr|truncatechars_html:20 }}
+                    <div>   
+                        {% if request.user == c.author %}
+                        <div class="delete-comment">
+                            <a href="{% url 'delete_comment' comment_id=c.id %}">Видалити</a>
+                        </div>
+                        {% endif %}                  
+                        <div class="author-comment">
+                            {{ c.author.username }} - {{ c.date }}
+                        </div>
+                    </div>       
+                </div>
+                <br>
                 {% endfor %}
-            </ul>
-            {% else %}
-            <ul class="list-group">
-                <li class="list-group-item">
-            <p style="margin: 0;">Покищо ніхто не залишив коментарів.</p>
-                </li>
-            </ul>
+
             {% endif %}
-
-{#<h3>Reactions:</h3>#}
-{#<div class="row">#}
-{#    <div class="col-md-6">#}
-{#        {% if n.reactions.exists %}#}
-{#            {% for r in n.reactions.all %}#}
-{#                <div>#}
-{#                    {% if r.reaction_type == 'thumbs_up' %}#}
-{#                        <i class="bi bi-hand-thumbs-up"></i>#}
-{#                    {% elif r.reaction_type == 'heart' %}#}
-{#                        <i class="bi bi-heart"></i>#}
-{#                    {% endif %}#}
-{#                    {{ r.author.username }} at {{ r.date }}#}
-{#                    {% if request.user.is_authenticated and r.author == request.user %}#}
-{#                        <form method="POST" action="{% url 'delete_reaction' r.pk %}">#}
-{#                            {% csrf_token %}#}
-{#                            <button type="submit">Delete</button>#}
-{#                        </form>#}
-{#                    {% endif %}#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#        {% else %}#}
-{#            <p>No reactions yet.</p>#}
-{#        {% endif %}#}
-{#    </div>#}
-{##}
-{#    <div class="col-md-6 text-right">#}
-{#        <form method="POST" action="{% url 'add_reaction' news_id=n.id %}">#}
-{#            {% csrf_token %}#}
-{#            <select name="reaction_type" id="id_reaction_type">#}
-{#                {% for choice in reaction_choices %}#}
-{#                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>#}
-{#                {% endfor %}#}
-{#            </select>#}
-{#            <button type="submit">Add Reaction</button>#}
-{#        </form>#}
-{#    </div>#}
-{#</div>#}
-
-        </div>
-    </div>
+            </div>
 </div>
+<hr>
 {% endfor %}
+
+<div>
+    {% include 'bjj_app/paginator.html' %}
+</div>
+
 {% endblock %}

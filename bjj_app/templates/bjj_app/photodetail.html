@@ -2,49 +2,57 @@
 
 {% block content %}
 
-    <div class="container mx-auto" style="width: 80%; margin: 0 auto;">
-  <div class="container my-5">
-    <div class="row">
-      <div class="col-md-8">
-        <h2 class="text-center">{{ photo.title }}</h2>
-        {% if photo.photo %}
-          <div class="container mx-auto" style="width: 100%;">
-            <img src="{{ photo.photo.url }}" alt="{{ photo.title }} photo" style="width: 100%; height: auto;">
-          </div>
-        {% endif %}
-        <p>{{ phoнеto.content|linebreaks }}</p>
-        <hr>
-        <div class="col-md-4">
-          <p><a href="{% url 'gallery' %}" class="btn btn-primary">&laquo; Повернутися назад</a></p>
-        </div>
-        <div class="row">
-            <p class="link-read-post text-right">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'add_comment_photo' photo_id=photo.id %}" class="btn btn-primary mt-3">Додати коментар</a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-primary mt-3">Авторизуйтесь</a>
-                {% endif %}
-            </p>
+<h2>{{ photo.title }}</h2>
 
-
-        {% if photo.comments.exists %}
-          <ul class="list-group">
-            {% for c in photo.comments.all %}
-              <li class="list-group-item">
-                  <p style="margin: 0;">{{ c.content|linebreaks|truncatewords:20 }} - {{ c.author.username }} at {{ c.date }}</p>
-                  {% if request.user == c.author %}
-                    <a href="{% url 'delete_comment_photo' comment_id=c.id %}">Видалити</a>
-                  {% endif %}
-              </li>
-            {% endfor %}
-          </ul>
-        {% else %}
-          <p>Покищо ніхто не залишив коментарів.</p>
-        {% endif %}
-        </div>
-      </div>
-    </div>
+  {% if photo.photo %}
+  <div>
+    <img src="{{ photo.photo.url }}" alt="{{ photo.title }} photo" class="photo-info-detail">
   </div>
-</div>
+  {% endif %}
+
+    <div>
+      <p>{{ photo.content|linebreaks }}</p>
+        <hr>
+
+        <div>
+          <div class="read-all">
+            <a href="{{ request.META.HTTP_REFERER|default:'/' }}">&laquo; Повернутися назад</a>
+          </div>
+
+          <div class="add-comment">
+              {% if user.is_authenticated %}
+              <a href="{% url 'add_comment_photo' photo_id=photo.id %}">Додати коментар</a>
+              {% else %}
+              <a href="{% url 'login' %}" title="Щоб залишати коментарі, необхідна авторизація">Авторизуйтесь</a>
+              {% endif %}
+          </div>
+        </div>
+
+        <div style="clear: both;"></div>
+
+        <div class="comment-border">
+        {% if photo.comments.exists %}
+
+            {% for c in photo.comments.all %}
+            <div class="li-comment">
+              {{ c.content|linebreaksbr }}
+              <div>
+                  {% if request.user == c.author %}
+                  <div class="delete-comment">
+                    <a href="{% url 'delete_comment_photo' comment_id=c.id %}">Видалити</a>
+                  </div>
+                  {% endif %}
+                  <div class="author-comment">
+                    {{ c.author.username }} - {{ c.date }}
+                  </div>
+                </div>
+              </div>
+              <br>
+              {% endfor %}
+          </ul>
+
+        {% endif %}
+        </div>
+    </div>
 
 {% endblock %}

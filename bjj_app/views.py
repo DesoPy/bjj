@@ -1,6 +1,7 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -240,6 +241,21 @@ class LoginUser(DataMixin, LoginView):
 def logout_user(request):
     logout(request)
     return redirect('home')
+
+
+def passwordResetConfirm(request, uidb64, token):
+    return redirect("homepage")
+
+
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'bjj_app/password_reset.html'
+    email_template_name = 'bjj_app/password_reset_email.html'
+    subject_template_name = 'bjj_app/password_reset_subject.txt'
+    success_message = "We've emailed you instructions for setting your password, " \
+                      "if an account exists with the email you entered. You should receive them shortly." \
+                      " If you don't receive an email, " \
+                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_url = reverse_lazy('home')
 
 
 def pageNotFound(request, exception):

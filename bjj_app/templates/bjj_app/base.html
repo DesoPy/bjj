@@ -1,57 +1,49 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<html lang="uk">
 <head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="shortcut icon" href="{% static 'bjj_app/images/main.ico' %}" type="image/x-icon">
-
+    <link type="text/css" href="{% static 'bjj_app/css/styles.css' %}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Final project">
+    <title>Yamasaki Academy Dnipro</title>
 </head>
+<body>
 
-<body class="centered-wrapper" style="background-color: #f5f4e1;">
-<nav class="navbar navbar-default" style="background-color: #d9e1f6;">
-    <div class="container-fluid">
-        <div class="navbar-header">
-           <a class="navbar-brand" href="{% url 'home' %}">
-				<img src="{% static 'bjj_app/images/logo.png' %}" alt="Logo" style="max-height: 120%; max-width: 120%;">
-			</a>
+    <div id="up-bar">
+        <div class="icon">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'bjj_app/images/main.ico' %}" width="39px">
+                </a>
         </div>
-        <ul class="nav navbar-nav">
-        {% for m in menu %}
-            <li><a href="{% url m.url_name %}">{{m.title}}</a></li>
-        {% endfor %}
+
+
+        <ul class="ul-menu">
+            {% for m in menu %}
+            <li class="li-menu"><a href="{% url m.url_name %}">{{m.title}}</a></li>
+            {% endfor %}
         </ul>
 
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="ul-menu-right">
             {% if request.user.is_authenticated %}
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{user.username}}</a></li>
-                <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Вийти</a></li>
+            <li class="li-menu"> <a href="#">{{user.username}}</a></li>
+            <li class="li-menu"><a href="{% url 'logout' %}">Вийти</a></li>
             {% else %}
-                <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Реєстрація</a></li>
-                <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Увійти</a></li>
+            <li class="li-menu"><a href="{% url 'register' %}">Реєстрація</a></li>
+            <li class="li-menu"><a href="{% url 'login' %}">Увійти</a></li>
             {% endif %}
         </ul>
 
     </div>
-</nav>
 
-<div class="container h-90">
-{% block content %}
-{#	<div class="card">#}
-{#      <div class="card-body">#}
-{#	      </div>#}
-{#    </div>#}
-{% endblock %}
-</div>
-</div>
+    <div class="fixed-container">
+        {% block content %}
+        {% endblock %}
+    </div>
+<br>
 
-{#<div class="container">#}
-{#    <footer class="font-weight-bold">#}
-{#        <p class="fs-5">2023 Бразильське джиу-джитсу Дніпро "Yamasaki academy"</p>#}
-{#    </footer>#}
-{# </div>#}
+
 
 </body>
+</html>

@@ -2,22 +2,26 @@
 {% load static %}
 
 {% block content %}
-  <div class="container">
-    <h1 class="text-center">Розклад тренувань</h1>
 
-    <div style="width: 100%; height: auto;  display: flex; justify-content: center; align-items: center;">
+    <h1>Розклад тренувань</h1>
+
+    <div class="schedule-logo">
         <img src="{% static 'bjj_app/images/logo3.png' %}" style="width: 40%; height: 40%;  display: flex; justify-content: center; align-items: center;">
     </div>
 
-    <h2 class="text-center">Доросла група</h2>
-    <table class="table table-bordered table-hover text-center mx-auto">
+    <br>
+
+    <h2>Доросла група</h2>
+
+    <div class="table-position">
+    <table>
       <thead class="table-dark">
         <tr>
-          <th class="text-center">День тижня</th>
-          <th class="text-center">Початок заняття</th>
-          <th class="text-center">Кінець заняття</th>
-          <th class="text-center">Формат</th>
-          <th class="text-center">Тренер</th>
+          <th>День тижня</th>
+          <th>Початок заняття</th>
+          <th>Кінець заняття</th>
+          <th>Формат</th>
+          <th>Тренер</th>
         </tr>
       </thead>
       <tbody>
@@ -33,7 +37,7 @@
         {% endif %}
         {% empty %}
           <tr>
-            <td colspan="5">Тренування відсутні</td>
+            <td>Тренування відсутні</td>
           </tr>
 
         {% endfor %}
@@ -41,16 +45,19 @@
     </table>
   </div>
 
-  <div class="container">
-    <h2 class="text-center">Дитяча група</h2>
-    <table class="table table-bordered table-hover text-center mx-auto">
-      <thead class="table-dark">
+  <br>
+
+    <h2>Дитяча група</h2>
+
+    <div class="table-position">
+    <table>
+      <thead>
         <tr>
-          <th class="text-center">День тижня</th>
-          <th class="text-center">Початок заняття</th>
-          <th class="text-center">Кінець заняття</th>
-          <th class="text-center">Формат</th>
-          <th class="text-center">Тренер</th>
+          <th>День тижня</th>
+          <th>Початок заняття</th>
+          <th>Кінець заняття</th>
+          <th>Формат</th>
+          <th>Тренер</th>
         </tr>
       </thead>
       <tbody>
@@ -66,11 +73,48 @@
         {% endif %}
         {% empty %}
           <tr>
-            <td colspan="5">Тренування відсутні</td>
+            <td>Тренування відсутні</td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
+
+  <br>
+
+    <h2>ММА та Бойове самбо</h2>
+
+    <div class="table-position">
+    <table>
+      <thead>
+        <tr>
+          <th>День тижня</th>
+          <th>Початок заняття</th>
+          <th>Кінець заняття</th>
+          <th>Формат</th>
+          <th>Тренер</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in schedule %}
+        {% if item.group == 'MMA' %}
+          <tr>
+            <td>{{ item.get_weekday_display }}</td>
+            <td>{{ item.start_time|time:"H:i" }}</td>
+            <td>{{ item.end_time|time:"H:i" }}</td>
+            <td>{{ item.forma }}</td>
+            <td>{{ item.trainer.full_name }}</td>
+          </tr>
+        {% endif %}
+        {% empty %}
+          <tr>
+            <td>Тренування відсутні</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <br>
 
 {% endblock %}
