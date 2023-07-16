@@ -94,8 +94,7 @@ a {
     justify-content: center;
     float: right;
     border-radius: 8px;
-    border: 1px solid #F74C32;
-    background-color: #8282bb;
+    background-color: #3d76cc;
 }
 
 .add-comment {
@@ -106,8 +105,7 @@ a {
     justify-content: center;
     float: right;
     border-radius: 8px;
-    border: 1px solid #F74C32;
-    background-color: #89b45a;
+    background-color: #a8f05b;
 }
 
 .comment-border {
