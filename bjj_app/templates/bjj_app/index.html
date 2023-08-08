@@ -10,13 +10,13 @@
 
         <h2>{{ n.title }}</h2>
 
-        <div>
+        <div class="adapt-news">
             <img src="{{ n.photo.url }}" alt="{{ n.title }} photo" class="photo-info">
         </div>
 
     {% endif %}
 
-        <div>
+        <div class="adapt-news">
             <p>{{ n.content|truncatechars_html:150|linebreaksbr }}</p>
             
             <div>

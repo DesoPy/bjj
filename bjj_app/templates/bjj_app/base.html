@@ -3,17 +3,18 @@
 <html lang="uk">
 <head>
     <link type="text/css" href="{% static 'bjj_app/css/styles.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'bjj_app/images/main.ico' %}" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Final project">
-    <title>Yamasaki Academy Dnipro</title>
+    <meta name="description" content="Yamasaki Academy запрошує дорослих та дітей на тренування з бразильського джиу джитсу (BJJ). Ми пропонуємо зручне розташування, розклад та кваліфікованих інструкторів">
+    <title>{{title}}</title>
 </head>
 <body>
 
     <div id="up-bar">
         <div class="icon">
-                <a href="{% url 'home' %}">
+                <a href="{% url 'index' %}">
                     <img src="{% static 'bjj_app/images/main.ico' %}" width="39px">
                 </a>
         </div>

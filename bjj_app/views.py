@@ -20,7 +20,7 @@ class BjjHome(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title='Yamasaki Academy Jiu Jitsu Dnipro')
+        c_def = self.get_user_context(title='Джиу-джитсу (BJJ) в Дніпрі | Yamasaki academy Dnipro')
         context['reaction_choices'] = NewsReaction.REACTION_CHOICES
         return dict(list(context.items()) + list(c_def.items()))
 
@@ -49,7 +49,7 @@ def add_comment(request, news_id):
             comment.news = post
             comment.author = request.user
             comment.save()
-            return redirect('home')
+            return redirect('index')
     else:
         form = CommentForm()
 
@@ -222,7 +222,7 @@ class RegisterUser(DataMixin, CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('home')
+        return redirect('index')
 
 
 class LoginUser(DataMixin, LoginView):
@@ -235,16 +235,22 @@ class LoginUser(DataMixin, LoginView):
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy('index')
 
 
 def logout_user(request):
     logout(request)
-    return redirect('home')
+    context = {
+        'menu': menu
+    }
+    return redirect('index', context=context)
 
 
 def passwordResetConfirm(request, uidb64, token):
-    return redirect("homepage")
+    context = {
+        'menu': menu
+    }
+    return redirect('index', context=context)
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView, DataMixin):
@@ -255,13 +261,13 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView, DataMixin):
                       "if an account exists with the email you entered. You should receive them shortly." \
                       " If you don't receive an email, " \
                       "please make sure you've entered the address you registered with, and check your spam folder."
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('index')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Відновлення паролю')
 
-        menu = [{'title': 'Головна', 'url_name': 'home'},
+        menu = [{'title': 'Головна', 'url_name': 'index'},
                 {'title': 'Галерея', 'url_name': 'gallery'},
                 {'title': 'Розклад тренувань', 'url_name': 'schedule'},
                 {'title': 'Про нас', 'url_name': 'about'},
@@ -274,4 +280,7 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView, DataMixin):
 
 
 def pageNotFound(request, exception):
-    return HttpResponseNotFound('Page not found')
+    context = {
+        'menu': menu
+    }
+    return render(request, 'bjj_app/page404.html', context=context)
