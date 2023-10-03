@@ -27,8 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'bjj.pythonanywhere.com',
-    'www.bjj.pythonanywhere.com'
+    'bjj-dnipro.com',
+    'www.bjj-dnipro.com'
 ]
 
 
@@ -153,5 +153,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 's.glotov1988@gmail.com'
-EMAIL_HOST_PASSWORD = 'olczplnvmnmbboup'
+EMAIL_HOST_USER = 'dniprobjj@gmail.com'
+EMAIL_HOST_PASSWORD = 'hzhpguntmaotubfj'
