@@ -5,12 +5,12 @@
 <h2>{{ photo.title }}</h2>
 
   {% if photo.photo %}
-  <div>
+  <div class="adapt-news">
     <img src="{{ photo.photo.url }}" alt="{{ photo.title }} photo" class="photo-info-detail">
   </div>
   {% endif %}
 
-    <div>
+    <div class="adapt-news">
       <p>{{ photo.content|linebreaks }}</p>
         <hr>
 

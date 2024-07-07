@@ -1,11 +1,11 @@
 html,body {
     margin: 0;
     padding: 0;
-    min-width: 1000px;
 }
 
 body {
     overflow: scroll;
+    min-width: 1000px;
 }
 
 h1{
@@ -32,11 +32,7 @@ h2 {
     overflow: hidden;
 }
 
-.icon {
-    margin: 6px 0px 6px 20px;
-    position: relative;
-    display: inline-block;
-}
+
 
 
 .ul-menu {
@@ -261,6 +257,9 @@ a {
 .map-container {
     margin-top: 20px;
     margin-bottom: 20px;
+    width: 960px;
+    height: 350px;
+    border: 0;
   }
 
 .trainer-name {
@@ -300,6 +299,10 @@ a {
     position: relative;
     line-height: 1.25;
     padding-left: 10px;
+}
+
+.mob-adapt {
+    display: hidden;
 }
 
 .soc-net {
@@ -469,4 +472,111 @@ th,td{
     margin-top: 100px;
     display: flex;
     justify-content: center;
+}
+
+@media only screen and (max-width: 767px) {
+
+    body {
+        min-width: auto;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .icon {
+        display: none;
+    }
+
+    #up-bar {
+        height: 151px;
+        background-color: #d4ddf7;
+        padding: 10px 0px 10px 0px;
+        color: black;
+        display: flex;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    .fixed-container {
+        width: 100%;
+    }
+
+    .about-text {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        text-align: justify;
+        margin: 25px;
+        padding: 8px;
+    }
+
+    .photo-container {
+        width: 100%;
+    }
+
+    .adapt-news {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px;
+    }
+
+    .contact-trainer {
+        width: 100%;
+        display: block;
+        align-items: center;
+    }
+
+    .photo-container-contact {
+        width: 100%;
+        align-items: center;
+        display: block;
+        padding: 0;
+    }
+
+
+    .table-position {
+        display: block; /* Change the display to block for mobile */
+        overflow-x: auto;
+        padding: 8px;
+    }
+
+    table {
+        width: 100%; /* Make the table take the full width on mobile */
+        max-width: 400px; /* Set a maximum width for better mobile display */
+        margin: 0 auto; /* Center the table on mobile */
+    }
+    
+
+    .map-container {
+        width: 100%;
+        display:block;
+        text-align: center;
+    }
+
+    .ul-menu, .ul-menu-right {
+        display: inline-block;
+    }
+
+    .trainer-info {
+        height: 150px;
+        align-items: center;
+        justify-content: left;
+        text-align: left;
+        font-family: sans-serif;
+        display: flex;
+        position: relative;
+        line-height: 1.25;
+        padding: 8px;
+    }
+
+    .trainer-phone {
+        height: 25px;
+        align-items: center;
+        justify-content: left;
+        text-align: left;
+        font-family: sans-serif;
+        display: flex;
+        position: relative;
+        padding: 8px;
+    }
+
 }
